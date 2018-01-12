@@ -6,7 +6,8 @@ $(function() {
     dataType: 'jsonp',
     success: function(response){
       $.each(response, function(){
-        $('#badges').append("<div></div>").addClass('course');
+        $('#badges').append("<div></div>");
+        $('#badges').find("div").addClass("course");
         $('.course').append("<h3>"+ this.data('title') +"</h3>");
         $('.course').append("<img src="+ this.data('badge') +"></img>");
         $('.course').append("<a href=\""+ this.data('url') + "target=\"_blank\""
