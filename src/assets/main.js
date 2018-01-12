@@ -5,16 +5,33 @@ $(function() {
     url: 'https://www.codeschool.com/users/4141162.json',
     dataType: 'jsonp',
     success: function(response){
-      $.each(response, function(){
-        $('#badges').append("<div></div>");
-        $('#badges').find("div").addClass("course");
-        $('.course').append("<h3>"+ this.data('title') +"</h3>");
-        $('.course').append("<img src="+ this.data('badge') +"></img>");
-        $('.course').append("<a href=\""+ this.data('url') + "target=\"_blank\""
-                            +">See Course</a>").addClass(btn);
-      });
+      addCourses(response.courses.completed);
     }
   });
 
+  function addCourses(courses){
+    var badges = $('#badges');
+    courses.forEach(function(course){
+      var $course = $('<div />',{
+      'class':'course'
+      }).appendTo(badges);
+
+      $('<h3 />', {
+        text: course.title
+      }).appendTo($course);
+
+      $('<img />', {
+        src: course.badge
+      }).appendTo($course);
+
+      $('<a />',{
+        'class': 'btn btn-primary',
+        href: course.url,
+        target: '_blank',
+        text: "See Course",
+      }).appendTo($course);
+    })
+
+  }
 
 });
